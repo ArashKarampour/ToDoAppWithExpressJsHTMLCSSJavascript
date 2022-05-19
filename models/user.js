@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 1024,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -52,7 +56,7 @@ function validateUserInputs(user) {
     name: Joi.string().min(3).max(50).required(),
     email: Joi.string().max(100).email().required(),
     //password: Joi.string().min(8).max(255).required()
-    passwrod: passwordComplexity(complexityOption, "the Password").required(),
+    password: passwordComplexity(complexityOption, "the Password").required(),
   });
 
   return schema.validate(user);

@@ -8,10 +8,12 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log("Couldn't connect to DB :", err));
 
+const cookieParser = require("cookie-parser");
 const users = require("./routes/users");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use("/api/todo/users", users);
 
 const port = process.env.PORT || 3000;
