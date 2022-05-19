@@ -15,4 +15,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/todo/users", users);
 
 const port = process.env.PORT || 3000;
-app.listen(3000, () => console.log(`listining to port ${port}`));
+app.listen(port, () => console.log(`listining to port ${port}`));
