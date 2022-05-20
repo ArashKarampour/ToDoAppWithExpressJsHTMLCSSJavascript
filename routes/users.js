@@ -71,7 +71,11 @@ router.get("/verify/:token", async (req, res) => {
     await User.updateOne({ _id: user._id }, { verified: true });
 
     return res
-      .cookie("token", req.params.token, { sameSite: "lax" })
+      .cookie("token", req.params.token, {
+        sameSite: "lax",
+        httpOnly: true,
+        maxAge: 365 * 24 * 3600000,
+      })
       .send("account verified sucessfully");
   } catch (e) {
     return res
@@ -80,6 +84,10 @@ router.get("/verify/:token", async (req, res) => {
         "An error occured User doesn't exist or token is invalid please try again!"
       );
   }
+});
+
+router.get("/logout", async (req, res) => {
+  res.clearCookie("token").send("loged out successfully");
 });
 
 module.exports = router;
