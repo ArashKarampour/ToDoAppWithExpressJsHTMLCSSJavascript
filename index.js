@@ -10,11 +10,18 @@ mongoose
 
 const cookieParser = require("cookie-parser");
 const users = require("./routes/users");
+const config = require("config");
+
+if (!config.get("jwtPrivateKey")) console.log("jwtPrivateKey is not set!");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/todo/users", users);
+
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listining to port ${port}`));
