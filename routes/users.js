@@ -10,6 +10,8 @@ const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox4711c7ec37104b2faa5731b099109750.mailgun.org";
 const mg = mailgun({ apiKey: config.get("Mailgun_API_Key"), domain: DOMAIN });
 
+//const port = require("../index.js");
+
 router.post("/register", async (req, res) => {
   const { error } = validateUserInputs(req.body);
   if (error) res.status(400).send(error.details[0].message);
@@ -18,11 +20,6 @@ router.post("/register", async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
     if (user) return res.status(400).send("Email is already used!");
 
-    // user = new User({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     password: req.body.password
-    // });
     user = new User(lodash.pick(req.body, ["name", "email", "password"]));
 
     // for generating random number between two number inclusive of the both. see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -44,7 +41,7 @@ router.post("/register", async (req, res) => {
         <h2>Please clike on the link to activate your account</h2>
         <a style="color:green;border-radius:5px" href=${config.get(
           "UrlBase"
-        )}/api/todo/users/verify/${token}>Verify</a>
+        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
       `,
       //text: "Testing some Mailgun awesomness!",
     };
@@ -54,6 +51,34 @@ router.post("/register", async (req, res) => {
     });
 
     res.send(lodash.pick(user, ["_id", "name", "email"]));
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("something faild please try again after a while");
+  }
+});
+
+router.get("/resend", async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(404).send("User not found!");
+
+    const token = user.generateAuthToken();
+    const data = {
+      from: "todo.app@gmail.com",
+      to: req.body.email,
+      subject: "Hello",
+      html: `
+        <h2>Please clike on the link to activate your account</h2>
+        <a style="color:green;border-radius:5px" href=${config.get(
+          "UrlBase"
+        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
+      `,
+    };
+    mg.messages().send(data, function (error, body) {
+      if (error) console.log("Couldn't send email!", error);
+      console.log(body);
+    });
+    res.send("Email resent! Please check your inbox.");
   } catch (e) {
     console.error(e);
     res.status(500).send("something faild please try again after a while");

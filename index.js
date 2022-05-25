@@ -23,5 +23,8 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = config.get("Port");
 app.listen(port, () => console.log(`listining to port ${port}`));
+
+// module.exports = port;
