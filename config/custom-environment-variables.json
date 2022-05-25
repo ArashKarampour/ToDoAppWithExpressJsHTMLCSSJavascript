@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "ToDoApp_jwtPrivateKey"
+  "jwtPrivateKey": "ToDoApp_jwtPrivateKey",
+  "Port": "PORT"
 }
