@@ -1,4 +1,4 @@
-const { User, validateUserInputs } = require("../models/user");
+const { User, validateUserInputs, validateLogin } = require("../models/user");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -57,7 +57,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/resend", async (req, res) => {
+router.post("/resend", async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(404).send("User not found!");
@@ -108,6 +108,48 @@ router.get("/verify/:token", async (req, res) => {
       .send(
         "An error occured User doesn't exist or token is invalid please try again!"
       );
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const { error } = validateLogin(req.body);
+  if (error) return res.status(400).send("Invalid email or password");
+
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user)
+      return res
+        .status(400)
+        .send("Wrong email or password!\nPlease try agian!");
+
+    if (!user.verified)
+      return res
+        .status(400)
+        .send(
+          "User not verified yet please check your email for verification link first!"
+        );
+
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword)
+      return res
+        .status(400)
+        .send("Wrong email or password!\nPlease try agian!");
+
+    const token = user.generateAuthToken();
+    return res
+      .cookie("token", token, {
+        sameSite: "lax",
+        httpOnly: true,
+        maxAge: 365 * 24 * 3600000,
+      })
+      .send(`Hello ${user.name} \nLoged in successfully!`);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("something faild! please try again after a while.");
   }
 });
 
