@@ -17,6 +17,7 @@ if (!config.get("jwtPrivateKey")) console.log("jwtPrivateKey is not set!");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.use(cookieParser());
 app.use("/api/todo/users", users);
 
