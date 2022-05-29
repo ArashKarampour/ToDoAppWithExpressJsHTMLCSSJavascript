@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/Formstyles.css" />
+  </head>
+  <body>
+    <form class="form-signin" action="/api/todo/users/login" method="post">
+      <h1>Please log in</h1>
+      <div class="form-group">
+        <input
+          class="form-control"
+          name="email"
+          type="email"
+          placeholder="Email address"
+          minlength="5"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          class="form-control"
+          name="password"
+          type="password"
+          placeholder="Password"
+          minlength="6"
+          maxlength="50"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="remember-me" />
+        <!-- <label for="remember-me">Remember me</label> -->
+      </div>
+      <button type="submit" class="btn">Register</button>
+      <!-- <p class="muted">Copyright &copy; 2020</p> -->
+    </form>
+  </body>
+</html>

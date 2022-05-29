@@ -14,7 +14,7 @@ const mg = mailgun({ apiKey: config.get("Mailgun_API_Key"), domain: DOMAIN });
 
 router.post("/register", async (req, res) => {
   const { error } = validateUserInputs(req.body);
-  if (error) res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   try {
     let user = await User.findOne({ email: req.body.email });
