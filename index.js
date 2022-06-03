@@ -13,6 +13,7 @@ const cookieParser = require("cookie-parser");
 const users = require("./routes/users");
 const config = require("config");
 
+
 if (!config.get("jwtPrivateKey")) console.log("jwtPrivateKey is not set!");
 
 app.use(express.json());
@@ -22,7 +23,9 @@ app.use(cookieParser());
 app.use("/api/todo/users", users);
 
 app.get("/", (req, res) => {
-  res.send("Hello");
+  //res.send("Hello");
+  ///res.sendFile("/home/arash/vscodeProjects/nodejs/ToDo List/public/Home.html");
+  res.sendFile("./public/Home.html",{root:__dirname});  
 });
 
 // const port = process.env.PORT || 3000;

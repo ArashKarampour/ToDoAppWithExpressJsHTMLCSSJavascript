@@ -50,7 +50,15 @@ router.post("/register", async (req, res) => {
       console.log(body);
     });
 
-    res.send(lodash.pick(user, ["_id", "name", "email"]));
+    //res.send(lodash.pick(user, ["_id", "name", "email"]));
+    res.send(`<h3>The email has been sent!</h3>
+    <h4>please check your inbox</h4>
+    <br>
+    <p>Didn't get the email yet?:</p>
+    <form action="/api/todo/users/resend" method="post">
+        <input name="email" type="hidden" value="${req.body.email}">
+        <button type="submit">Resend verification Link</button>
+    </form>`);
   } catch (e) {
     console.error(e);
     res.status(500).send("something faild please try again after a while");
@@ -78,7 +86,14 @@ router.post("/resend", async (req, res) => {
       if (error) console.log("Couldn't send email!", error);
       console.log(body);
     });
-    res.send("Email resent! Please check your inbox.");
+    res.send(`<h3>The email has been Resent!</h3>
+    <h4>please check your inbox</h4>
+    <br>
+    <p>Didn't get the email yet?:</p>
+    <form action="/api/todo/users/resend" method="post">
+        <input name="email" type="hidden" value="${req.body.email}">
+        <button type="submit">Resend verification Link</button>
+    </form>`);
   } catch (e) {
     console.error(e);
     res.status(500).send("something faild please try again after a while");
