@@ -17,7 +17,7 @@ const taskSchema = new mongoose.Schema({
   comment: {
     type: String,
     required: false,
-    trim: true,    
+    trim: true,
     maxlength: 500,
   },
   priority: {
@@ -29,22 +29,24 @@ const taskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  done: {
+    type: Boolean,
+    default: false,
+  },
 });
-
 
 const Task = mongoose.model("tasks", taskSchema);
 
+function validateTask(task) {
+  const schema = Joi.object({
+    //userId: Joi.objectId().required(),
+    subject: Joi.string().min(3).max(250).required(),
+    comment: Joi.string().max(500),
+    priority: Joi.string(),
+    dueDate: Joi.date(),
+  });
 
-function validateTask(task){
-    const schema = Joi.object({
-        //userId: Joi.objectId().required(),
-        subject: Joi.string().min(3).max(250).required(),
-        comment: Joi.string().max(500),
-        priority: Joi.string(),
-        dueDate: Joi.date()
-    });
-
-    return schema.validate(task);
+  return schema.validate(task);
 }
 
 module.exports.Task = Task;
