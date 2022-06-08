@@ -160,8 +160,8 @@ router.post("/login", async (req, res) => {
         sameSite: "lax",
         httpOnly: true,
         maxAge: 365 * 24 * 3600000,
-      })
-      .send(`Hello ${user.name} \nLoged in successfully!`);
+      }).redirect("/api/todo/mypanel");
+      // .send(`Hello ${user.name} \nLoged in successfully!`);
   } catch (e) {
     console.error(e);
     res.status(500).send("something faild! please try again after a while.");

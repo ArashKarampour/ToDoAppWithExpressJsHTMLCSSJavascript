@@ -14,6 +14,7 @@ mongoose
 const cookieParser = require("cookie-parser");
 const users = require("./routes/users");
 const tasks = require("./routes/tasks");
+const panel = require("./routes/panel");
 const auth = require("./middlewares/auth");
 const config = require("config");
 
@@ -26,12 +27,14 @@ app.get("/", (req, res) => {
   res.sendFile("./public/Home.html", { root: __dirname });
 });
 
+app.set("view engine","ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use("/api/todo/users", users);
 app.use(auth);
+app.use("/api/todo/mypanel", panel);
 app.use("/api/todo/tasks", tasks);
 
 // const port = process.env.PORT || 3000;
