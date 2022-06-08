@@ -17,6 +17,7 @@ const taskSchema = new mongoose.Schema({
   comment: {
     type: String,
     required: false,
+    default: "",
     trim: true,
     maxlength: 500,
   },
@@ -41,7 +42,7 @@ function validateTask(task) {
   const schema = Joi.object({
     //userId: Joi.objectId().required(),
     subject: Joi.string().min(3).max(250).required(),
-    comment: Joi.string().max(500),
+    comment: Joi.string().max(500).default(""),
     priority: Joi.string(),
     dueDate: Joi.date(),
   });

@@ -1,3 +1,54 @@
+html{
+  overflow: auto;
+  height: 100vh;
+}
+.my-btn{
+  display: inline-block;
+  border-radius: 2rem;
+  padding: 2px 10px;
+  margin: 10px 3px;
+}
+
+.btn-del{
+  background-color: rgb(157, 9, 9);
+  color: white;  
+}
+
+.btn-upd{
+  background-color: rgb(219, 205, 9);
+  color: white;  
+}
+
+.btn-don{
+  background-color: rgb(6, 186, 27);
+  color: white;   
+}
+
+section div ul.u-text{
+  width: 100%;
+}
+section div ul.u-text li{
+  margin-bottom: 1.2rem;
+}
+
+.u-section-1{
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.add-btn-section #add-btn {
+  /*position: fixed;*/
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  /*left: 40rem;*/
+  /*margin: 177px 57px 27px auto;*/
+  margin: 20px 20px 20px auto;
+  padding: 15px 64px 15px 63px;
+  z-index: 10;
+}
 
 .u-section-1 .u-sheet-1 {
   min-height: 498px;
@@ -10,26 +61,77 @@
 
 .u-section-1 .u-text-2 {
   background-image: none;
-  margin: 32px 678px 0 15px;
+  margin: 32px 678px 1rem 15px;
 }
 
 .u-section-1 .u-text-3 {
-  margin: 0 667px 0 15px;
+  margin: 0 667px 1rem 15px;
 }
 
 .u-section-1 .u-text-4 {
-  margin: 0 667px 0 15px;
+  margin: 0 667px 1rem 15px;
 }
 
-.u-section-1 .u-btn-1 {
+/*.u-section-1 .u-btn-1 {
+  //position: fixed;
   border-style: none;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.875rem;
   letter-spacing: 1px;
-  margin: 177px 57px 27px auto;
+  //left: 40rem;
+  //margin: 177px 57px 27px auto;
+  margin: 20px 20px 20px auto;
   padding: 15px 64px 15px 63px;
+  z-index: 10;
+}*/
+
+
+/*Modal css*/
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.form-element{
+  margin-bottom: 10px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}  
+
+/* End Modal css */
 
 @media (max-width: 1199px) {
   .u-section-1 .u-text-1 {
@@ -51,10 +153,10 @@
     margin-left: 0;
   }
 
-  .u-section-1 .u-btn-1 {
-    margin-top: 188px;
+  /* .u-section-1 .u-btn-1 {
+    margin-top: 50px;
     margin-right: 0;
-  }
+  } */
 }
 
 @media (max-width: 991px) {
@@ -110,7 +212,7 @@
     margin-right: 0;
   }
 
-  .u-section-1 .u-btn-1 {
+  /* .u-section-1 .u-btn-1 {
     margin-bottom: 35px;
-  }
+  } */
 }
