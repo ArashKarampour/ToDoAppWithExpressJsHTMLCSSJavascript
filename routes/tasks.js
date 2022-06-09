@@ -16,7 +16,7 @@ router.post("/add", async (req, res) => {
 
   try{
     await task.save();
-    return res.send(task);
+    return res.json(task);
   }catch(e){
     console.error(e);
     res.status(500).send("something faild please try again after a while");
