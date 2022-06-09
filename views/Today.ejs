@@ -8,7 +8,7 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
-        <form action="/api/todo/tasks/add" method="post">
+        <form id="add-task" action="/api/todo/tasks/add" method="post">
           <fieldset>
             <legend>Add Task</legend>
             <div class="form-element">
@@ -24,8 +24,13 @@
               </select>
             </div>
             <div class="form-element">
+              <label for="dueDate">Date(Default:Today):</label><br>
+              <input type="date" name="dueDate" id="dueDate" >
+            </div>
+
+            <div class="form-element">
               <label for="comment">Comment(optional):</label><br>
-              <textarea name="comment" id="comment" cols="20" rows="3" placeholder="optional comment">&nbsp;</textarea>
+              <textarea name="comment" id="comment" cols="20" rows="3" placeholder="optional comment"></textarea>
             </div>
 
             <button type="submit">Add</button>
@@ -38,7 +43,7 @@
     <section class="u-clearfix u-grey-15 u-section-1" id="sec-ef11">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-text u-text-1">Today</h3>
-         <ul class="u-text u-text-palette-2-base u-text-2">
+         <ul class="u-text u-text-palette-2-base u-text-2 ulVeryHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "very high"){ %>
           <li>
@@ -59,7 +64,7 @@
             <% } %>
           <% }) %>
         </ul>
-        <ul class="u-text u-text-palette-3-base u-text-4">
+        <ul class="u-text u-text-palette-3-base u-text-4 ulHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "high"){ %>
           <li>
@@ -80,7 +85,7 @@
             <% } %>
           <% }) %>
         </ul> 
-        <ul class="u-text u-text-palette-1-base u-text-3">
+        <ul class="u-text u-text-palette-1-base u-text-3 ulNormal">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "normal"){ %>
           <li>
