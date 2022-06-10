@@ -50,5 +50,14 @@ function validateTask(task) {
   return schema.validate(task);
 }
 
+function validateTaskId (taskId){
+  const schema = Joi.object({
+    _id: Joi.objectId().required()
+  });
+  
+  return schema.validate(taskId);
+}
+
 module.exports.Task = Task;
 module.exports.validateTask = validateTask;
+module.exports.validateTaskId = validateTaskId;
