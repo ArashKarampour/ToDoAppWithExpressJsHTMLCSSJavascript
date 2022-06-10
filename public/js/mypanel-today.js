@@ -133,40 +133,73 @@ myform.addEventListener('submit',function (event) {
 // deletLinks.forEach( deletLink => { 
 //     deletLink.addEventListener('click', function (e) {
     //Using event deligation for delete (because of adding tasks with fetch method):
-    function deleteTask(e){
-        if(e.target.classList.contains("btn-del")){
-        e.preventDefault();
-        //e.stopPropagation();
-        const anchor = e.target;
-        //console.log(this.getAttribute("href")); // gives the href value attribute
-        //console.log(this.href); //give the whole link
-        // const rout = this.getAttribute("href");
-        // console.log(rout);
-        fetch(`${anchor.getAttribute("href")}`,{ 
-            method: "DELETE",
-            credentials:"same-origin",
-            // headers :{
-            //     'Content-Type': 'application/json'
-            // }
-        })
-        .then(res => { 
-            if(!res.ok){
-                res.json()
-                .then(msg => alert(`Coulden't delete task with error: ${msg}`));            
-            }else{
-                anchor.parentElement.parentElement.style.animationPlayState = "running";
-                anchor.parentElement.parentElement.addEventListener("animationend",  function () {
-                    this.remove();
-                });
-                //this.parentElement.parentElement.remove();
-                res.json()
-                .then(deletedTask => alert(`Task with title: "${deletedTask.subject}" deleted successfully!`));
-            }
-            })    
-        .catch(e => alert(`Coulden't delete task with error: ${e}`));
-        }
-    }
+function deleteTask(e){
+  if(e.target.classList.contains("btn-del")){
+  e.preventDefault();
+  //e.stopPropagation();
+  const anchor = e.target;
+  //console.log(this.getAttribute("href")); // gives the href value attribute
+  //console.log(this.href); //give the whole link
+  // const rout = this.getAttribute("href");
+  // console.log(rout);
+  if(confirm("Are you sure you want to delete the Task?")){
+  fetch(`${anchor.getAttribute("href")}`,{ 
+      method: "DELETE",
+      credentials:"same-origin",
+      // headers :{
+      //     'Content-Type': 'application/json'
+      // }
+  })
+  .then(res => { 
+      if(!res.ok){
+          res.json()
+          .then(msg => alert(`Coulden't delete task with error: ${msg}`));            
+      }else{
+          anchor.parentElement.parentElement.style.animationPlayState = "running";
+          anchor.parentElement.parentElement.addEventListener("animationend",  function () {
+              this.remove();
+          });
+          //this.parentElement.parentElement.remove();
+          res.json()
+          .then(deletedTask => alert(`Task with title: "${deletedTask.subject}" deleted successfully!`));
+      }
+      })    
+  .catch(e => alert(`Coulden't delete task with error: ${e}`));
+  }
+}
+}
 
-    document.getElementById("sec-ef11").addEventListener('click', deleteTask);
+document.getElementById("sec-ef11").addEventListener('click', deleteTask);
 // })
 // });
+
+function doneTask(e){
+  if(e.target.classList.contains("btn-don")){
+    e.preventDefault();
+    const anchor = e.target;
+
+    fetch(`${anchor.getAttribute("href")}`,{ 
+      method: "PUT",
+      credentials:"same-origin",
+
+    })
+    .then(res => { 
+        if(!res.ok){
+            res.json()
+            .then(msg => alert(`Coulden't done task with error: ${msg}`));            
+        }else{
+            anchor.parentElement.parentElement.style.animationPlayState = "running";
+            anchor.parentElement.parentElement.addEventListener("animationend",  function () {
+                this.remove();
+            });
+
+            res.json()
+            .then(doneTask => alert(`Task with title: "${doneTask.subject}" done successfully!`));
+        }
+        })    
+    .catch(e => alert(`Coulden't done task with error: ${e}`));
+  
+  }
+}
+
+document.getElementById("sec-ef11").addEventListener('click', doneTask);

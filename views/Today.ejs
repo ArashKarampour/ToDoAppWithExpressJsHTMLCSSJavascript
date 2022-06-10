@@ -45,7 +45,7 @@
         <h3 class="u-text u-text-1">Today</h3>
          <ul class="u-text u-text-palette-2-base u-text-2 ul-task ulVeryHigh">
           <% tasks.forEach(task => { %>
-            <% if(task.priority == "very high"){ %>
+            <% if(task.priority == "very high" && task.done == false){ %>
           <li>
             <span style="font-size: 1.5rem" class="u-text-black">
               <%=task.subject %>
@@ -66,7 +66,7 @@
         </ul>
         <ul class="u-text u-text-palette-3-base u-text-4 ul-task ulHigh">
           <% tasks.forEach(task => { %>
-            <% if(task.priority == "high"){ %>
+            <% if(task.priority == "high" && task.done == false){ %>
           <li>
             <span style="font-size: 1.5rem" class="u-text-black">
               <%=task.subject %>
@@ -87,7 +87,7 @@
         </ul> 
         <ul class="u-text u-text-palette-1-base u-text-3 ul-task ulNormal">
           <% tasks.forEach(task => { %>
-            <% if(task.priority == "normal"){ %>
+            <% if(task.priority == "normal" && task.done == false){ %>
           <li>
             <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
               <%=task.subject %>

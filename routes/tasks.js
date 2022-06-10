@@ -29,8 +29,23 @@ router.delete("/delete/:taskId", async (req,res) => {
   if(error) return res.status(400).json(error.details[0].message);
   try{
     const deletedTask = await Task.findByIdAndRemove(req.params.taskId);
-    console.log(deletedTask);
+    //console.log(deletedTask);
     return res.json(deletedTask);
+  }catch(e){
+    console.error(e);
+    return res.status(500).json("something faild please try again after a while");
+  }
+});
+
+
+router.put("/done/:taskId", async (req,res) => {
+  const { error } = validateTaskId({_id: req.params.taskId});
+  if(error) return res.status(400).json(error.details[0].message);
+
+  try{
+    const doneTask = await Task.findByIdAndUpdate(req.params.taskId,{$set:{done:true}},{new:true});
+    //console.log(doneTask);
+    return res.json(doneTask);
   }catch(e){
     console.error(e);
     return res.status(500).json("something faild please try again after a while");
