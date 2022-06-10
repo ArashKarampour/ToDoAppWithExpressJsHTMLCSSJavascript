@@ -57,9 +57,18 @@ myform.addEventListener('submit',function (event) {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok) {
+        response.json()
+        .then(msg => alert(`Coulden't add task with error: ${msg}`));        
+      }
+      else{
+        return response.json();
+      }
+    })
     .then(task => {
-        //console.log(todo);
+        //console.log(task);
+      if(task){
         if(task.priority == "normal"){
             const li = `<li>
             <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
@@ -116,6 +125,7 @@ myform.addEventListener('submit',function (event) {
             document.querySelector(".ulVeryHigh").innerHTML += li;
             alert("Task added successfully!");
         }
+      }
     })
     .catch(e => alert(`Coulden't add task with error: ${e}`));
         
@@ -137,7 +147,7 @@ function deleteTask(e){
   if(e.target.classList.contains("btn-del")){
   e.preventDefault();
   //e.stopPropagation();
-  const anchor = e.target;
+  const anchor = e.target;  
   //console.log(this.getAttribute("href")); // gives the href value attribute
   //console.log(this.href); //give the whole link
   // const rout = this.getAttribute("href");
@@ -155,13 +165,14 @@ function deleteTask(e){
           res.json()
           .then(msg => alert(`Coulden't delete task with error: ${msg}`));            
       }else{
-          anchor.parentElement.parentElement.style.animationPlayState = "running";
-          anchor.parentElement.parentElement.addEventListener("animationend",  function () {
-              this.remove();
-          });
-          //this.parentElement.parentElement.remove();
-          res.json()
-          .then(deletedTask => alert(`Task with title: "${deletedTask.subject}" deleted successfully!`));
+        anchor.parentElement.parentElement.style.animationName = "delete";
+        anchor.parentElement.parentElement.style.animationPlayState = "running";
+        anchor.parentElement.parentElement.addEventListener("animationend",  function () {
+            this.remove();
+        });
+        //this.parentElement.parentElement.remove();
+        res.json()
+        .then(deletedTask => alert(`Task with title: "${deletedTask.subject}" deleted successfully!`));
       }
       })    
   .catch(e => alert(`Coulden't delete task with error: ${e}`));
@@ -188,13 +199,13 @@ function doneTask(e){
             res.json()
             .then(msg => alert(`Coulden't done task with error: ${msg}`));            
         }else{
-            anchor.parentElement.parentElement.style.animationPlayState = "running";
-            anchor.parentElement.parentElement.addEventListener("animationend",  function () {
-                this.remove();
-            });
-
-            res.json()
-            .then(doneTask => alert(`Task with title: "${doneTask.subject}" done successfully!`));
+          anchor.parentElement.parentElement.style.animationName = "done";
+          anchor.parentElement.parentElement.style.animationPlayState = "running";
+          anchor.parentElement.parentElement.addEventListener("animationend",  function () {
+              this.remove();
+          });
+          res.json()
+          .then(doneTask => alert(`Task with title: "${doneTask.subject}" done successfully!`));
         }
         })    
     .catch(e => alert(`Coulden't done task with error: ${e}`));
