@@ -69,8 +69,13 @@ myform.addEventListener('submit',function (event) {
     .then(task => {
         //console.log(task);
       if(task){
-        if(task.priority == "normal"){
-            const li = `<li>
+        if(task.priority == "normal"){                   
+            const li = `<li
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
             <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
               ${task.subject}
             </span>
@@ -89,7 +94,12 @@ myform.addEventListener('submit',function (event) {
           alert("Task added successfully!");
         }
         else if(task.priority == "high"){
-            const li = `<li>
+            const li = `<li
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
             <span style="font-size: 1.5rem" class="u-text-black">
                ${task.subject}
             </span>
@@ -107,7 +117,12 @@ myform.addEventListener('submit',function (event) {
             document.querySelector(".ulHigh").innerHTML += li;
             alert("Task added successfully!");
         }else{
-            const li = `<li>
+            const li = `<li
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
             <span style="font-size: 1.5rem" class="u-text-black">
                ${task.subject}
             </span>
