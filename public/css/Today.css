@@ -27,8 +27,32 @@ html{
 section div ul.u-text{
   width: 100%;
 }
+
+@keyframes delete {
+    0%{
+      opacity: 1;
+    }
+
+    75%{
+      opacity: 0;
+    }
+
+    100%{
+      opacity: 0;
+      height: 0;
+      line-height: 0;
+      padding: 0;
+      margin-bottom: 0;
+    }
+}
+
 section div ul.u-text li{
   margin-bottom: 1.2rem;
+  /*adding animation for delete:*/
+  animation-name: delete;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
 }
 
 .u-section-1{

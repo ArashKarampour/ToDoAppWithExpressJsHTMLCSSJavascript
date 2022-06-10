@@ -43,7 +43,7 @@
     <section class="u-clearfix u-grey-15 u-section-1" id="sec-ef11">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-text u-text-1">Today</h3>
-         <ul class="u-text u-text-palette-2-base u-text-2 ulVeryHigh">
+         <ul class="u-text u-text-palette-2-base u-text-2 ul-task ulVeryHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "very high"){ %>
           <li>
@@ -64,7 +64,7 @@
             <% } %>
           <% }) %>
         </ul>
-        <ul class="u-text u-text-palette-3-base u-text-4 ulHigh">
+        <ul class="u-text u-text-palette-3-base u-text-4 ul-task ulHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "high"){ %>
           <li>
@@ -85,7 +85,7 @@
             <% } %>
           <% }) %>
         </ul> 
-        <ul class="u-text u-text-palette-1-base u-text-3 ulNormal">
+        <ul class="u-text u-text-palette-1-base u-text-3 ul-task ulNormal">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "normal"){ %>
           <li>

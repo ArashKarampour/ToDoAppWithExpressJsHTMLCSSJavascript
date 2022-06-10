@@ -122,3 +122,51 @@ myform.addEventListener('submit',function (event) {
     
 });
 
+
+//let deletLinks = document.querySelectorAll(".btn-del");
+// document.querySelectorAll(".ul-task").forEach( ul => {
+//     ul.addEventListener('change', function () {
+//         deletLinks = document.querySelectorAll(".btn-del");
+//     });
+// } );
+
+// deletLinks.forEach( deletLink => { 
+//     deletLink.addEventListener('click', function (e) {
+    //Using event deligation for delete (because of adding tasks with fetch method):
+    function deleteTask(e){
+        if(e.target.classList.contains("btn-del")){
+        e.preventDefault();
+        //e.stopPropagation();
+        const anchor = e.target;
+        //console.log(this.getAttribute("href")); // gives the href value attribute
+        //console.log(this.href); //give the whole link
+        // const rout = this.getAttribute("href");
+        // console.log(rout);
+        fetch(`${anchor.getAttribute("href")}`,{ 
+            method: "DELETE",
+            credentials:"same-origin",
+            // headers :{
+            //     'Content-Type': 'application/json'
+            // }
+        })
+        .then(res => { 
+            if(!res.ok){
+                res.json()
+                .then(msg => alert(`Coulden't delete task with error: ${msg}`));            
+            }else{
+                anchor.parentElement.parentElement.style.animationPlayState = "running";
+                anchor.parentElement.parentElement.addEventListener("animationend",  function () {
+                    this.remove();
+                });
+                //this.parentElement.parentElement.remove();
+                res.json()
+                .then(deletedTask => alert(`Task with title: "${deletedTask.subject}" deleted successfully!`));
+            }
+            })    
+        .catch(e => alert(`Coulden't delete task with error: ${e}`));
+        }
+    }
+
+    document.getElementById("sec-ef11").addEventListener('click', deleteTask);
+// })
+// });
