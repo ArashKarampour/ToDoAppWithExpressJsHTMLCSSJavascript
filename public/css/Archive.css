@@ -1,0 +1,121 @@
+
+.u-section-1 {
+  background-image: linear-gradient(to right, #478ac9, #db545a);
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 800px;
+}
+
+/*done tasks title:*/
+.u-section-1 .u-text-1 {
+  font-size: 4rem;
+  background-image: none;
+  margin: 30px auto 0 49px;
+}
+
+.u-section-1 .u-text-2 {
+  margin: 22px 648px 60px 77px;
+}
+
+/* .u-section-1 .u-list-icon-1 {
+  color: rgb(132, 209, 82) !important;
+}
+
+.u-section-1 .u-list-icon-2 {
+  color: rgb(132, 209, 82) !important;
+}
+
+.u-section-1 .u-list-icon-3 {
+  color: rgb(132, 209, 82) !important;
+} */
+/*color of ticks:*/
+.u-section-1 .u-list-icon {
+  color: rgb(132, 209, 82);
+}
+
+section#sec-c5d1 div ul li{
+  margin-bottom: 1.2rem;
+}
+
+/*delete button:*/
+.my-btn{
+  display: inline-block;
+  border-radius: 2rem;
+  padding: 2px 10px;
+  margin: 10px 3px;
+}
+
+.btn-del{
+  background-color: rgb(157, 9, 9);
+  color: white;  
+}
+
+
+@keyframes delete {
+  0%{
+    opacity: 1;      
+  }
+
+  75%{
+    opacity: 0;      
+  }
+
+  100%{
+    opacity: 0;      
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+section div ul.u-text li{
+  margin-bottom: 1.2rem;
+  /*adding animation for delete:*/
+  /*animation-name: done, delete;*/
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-text-2 {
+    margin-right: 525px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-text-2 {
+    margin-right: 305px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 821px;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 3.75rem;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 125px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 807px;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 3rem;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-right: 0;
+  }
+}

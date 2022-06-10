@@ -12,5 +12,9 @@ router.get("/today", (req,res) => {
     res.redirect("/api/todo/mypanel/");
 });
 
+router.get("/archive", async (req,res) => {
+    const tasks = await Task.find({userId:req.user._id , done:true});
+    res.render("Archive",{tasks:tasks});
+});
 
 module.exports = router;
