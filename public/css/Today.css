@@ -15,8 +15,15 @@ html{
 }
 
 .btn-upd{
+  border: 0;
+  outline: 0;
   background-color: rgb(219, 205, 9);
   color: white;  
+}
+
+.btn-upd:hover{
+  cursor: pointer;
+  color: rgb(71, 71, 255);
 }
 
 .btn-don{
