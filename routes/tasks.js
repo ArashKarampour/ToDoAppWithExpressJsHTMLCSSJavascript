@@ -52,4 +52,27 @@ router.put("/done/:taskId", async (req,res) => {
   }
 });
 
+router.put("/update/:taskId", async (req,res) => {
+  const { errortaskId } = validateTaskId({_id: req.params.taskId});
+  const { error } = validateTask(req.body);
+  if(error || errortaskId) return res.status(400).json(error.details[0].message);
+
+  try{
+    const updatedTask = await Task.findByIdAndUpdate(req.params.taskId,
+      {$set:{
+        subject: req.body.subject,
+        comment: req.body.comment,
+        priority: req.body.priority,
+        dueDate: req.body.dueDate,
+      }},
+      {new:true});
+     
+      return res.json(updatedTask);
+  }catch(e){
+    console.error(e);
+    return res.status(500).json("something faild please try again after a while");
+  }
+
+});
+
 module.exports = router;

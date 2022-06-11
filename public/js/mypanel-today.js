@@ -1,12 +1,13 @@
 
 // Get the modal
 var modal = document.getElementById("myModal");
-
+const modalUpd = document.getElementById("myModalUpd");
 // Get the button that opens the modal
 var btn = document.getElementById("add-btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
+const spanUpd = document.getElementsByClassName("close")[1];
 
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
@@ -22,12 +23,22 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 
+spanUpd.onclick = function() {
+  modalUpd.style.display = "none";
+}
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}        
+}
+
+window.onclick = function(event) {
+  if (event.target == modalUpd) {
+    modalUpd.style.display = "none";
+  }
+} 
 
 const myform = document.getElementById("add-task");
 myform.addEventListener('submit',function (event) {
@@ -84,7 +95,7 @@ myform.addEventListener('submit',function (event) {
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/${task._id }">Update</a>
+              <button class="my-btn btn-upd">Update</button>
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
@@ -108,7 +119,7 @@ myform.addEventListener('submit',function (event) {
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/${task._id }">Update</a>
+              <button class="my-btn btn-upd">Update</button>
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
@@ -131,7 +142,7 @@ myform.addEventListener('submit',function (event) {
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/${task._id }">Update</a>
+              <button class="my-btn btn-upd">Update</button>
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
@@ -229,3 +240,80 @@ function doneTask(e){
 }
 
 document.getElementById("sec-ef11").addEventListener('click', doneTask);
+
+
+function updateTask(e){
+  if(e.target.classList.contains("btn-upd")){
+    
+    const btn = e.target;
+
+    
+    const li = btn.parentElement.parentElement;
+    document.getElementById("update-task").action = `/api/todo/tasks/update/${li.dataset.taskid}`;
+    //important caution: in dataset.* (javascript),all letters of * must be just lowercase. also in data-* (html)
+    document.getElementById("subjectUpd").value = li.dataset.subject;
+    document.getElementById("priorityUpd").value = li.dataset.priority;
+    document.getElementById("dueDateUpd").value = li.dataset.duedate;
+    document.getElementById("commentUpd").value = li.dataset.comment;
+
+    
+    modalUpd.style.display = "block";
+    
+
+  }
+}
+
+document.getElementById("sec-ef11").addEventListener('click', updateTask);
+
+
+const myUpdform = document.getElementById("update-task");
+myUpdform.addEventListener('submit',function (event) {
+    event.preventDefault();    
+    // console.log(formdata.get("comment"));
+    //console.log(document.getElementById("comment").innerHTML.length);
+    if(document.getElementById("commentUpd").value.length == 0){
+        document.querySelector("#commentUpd").value = " ";
+    }
+    //const formdata = new FormData(myUpdform);
+    // const formdata2 = {"subject": document.getElementById("subjectUpd").value,
+    // "priority":document.getElementById("priorityUpd").value,
+    // "dueDate":document.getElementById("dueDateUpd").value,
+    // "comment":document.getElementById("commentUpd").value};
+    const formdata = new FormData(myUpdform);
+    const formdata2 = {"subject": formdata.get("subject"),"priority":formdata.get("priority"),"dueDate":formdata.get("dueDate"),"comment":formdata.get("comment")};
+
+    fetch(`${myUpdform.action}`,{
+        method : "PUT",
+        body: JSON.stringify(formdata2),
+        credentials: "same-origin",
+        headers :{
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+      if(!response.ok) {
+        response.json()
+        .then(msg => alert(`Coulden't update task with error: ${msg}`));        
+      }
+      else{
+        return response.json();
+      }
+    })
+    .then(task => {
+       
+      if(task){
+        alert(`Task updated successfully with
+        subject: ${task.subject},
+        priority: ${task.priority},
+        dueDate: ${task.dueDate.substring(0,10)},
+        comment: ${task.comment},
+        `);
+        setTimeout(() => {
+          window.location.reload();          
+        }, 300);//reload page after 300 ms
+      }
+    })
+    .catch(e => alert(`Coulden't add task with error: ${e}`));
+        
+    
+});

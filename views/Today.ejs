@@ -2,7 +2,7 @@
     <%- include("./partials/header.ejs",{title:"Today"}) %>
 
 
-    <!-- The Modal -->
+    <!-- The Add Modal -->
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
@@ -40,15 +40,55 @@
 
     </div>
 
+
+        <!-- The Update Modal -->
+    <div id="myModalUpd" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="update-task" action="/api/todo/tasks/update/taskId" method="post">
+          <fieldset>
+            <legend>Update Task</legend>
+            <div class="form-element">
+              <label for="subjectUpd"><span style="color:red">*</span> Title:</label>
+              <input type="text" name="subject" id="subjectUpd" required>
+            </div>
+            <div class="form-element">
+              <label for="priorityUpd">Priority</label>
+              <select name="priority" id="priorityUpd">
+                <option value="normal"><span style="color:blue">normal</span></option>
+                <option value="high"><span style="color:rgb(221, 221, 0)">high</span></option>
+                <option value="very high"><span style="color:red">very high</span></option>
+              </select>
+            </div>
+            <div class="form-element">
+              <label for="dueDateUpd">Date:</label><br>
+              <input type="date" name="dueDate" id="dueDateUpd" >
+            </div>
+
+            <div class="form-element">
+              <label for="commentUpd">Comment(optional):</label><br>
+              <textarea name="comment" id="commentUpd" cols="20" rows="3" placeholder="optional comment"></textarea>
+            </div>
+
+            <button type="submit">Update</button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+
     <section class="u-clearfix u-grey-15 u-section-1" id="sec-ef11">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-text u-text-1">Today</h3>
          <ul class="u-text u-text-palette-2-base u-text-2 ul-task ulVeryHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "very high" && task.done == false){ %>
-          <li data-subject="<%=task.subject %>"
+          <li data-taskid="<%=task._id %>"
+              data-subject="<%=task.subject %>"
               data-priority="<%=task.priority %>"
-              data-dueDate="<%=task.dueDate.toISOString().substring(0,10) %>"
+              data-duedate="<%=task.dueDate.toISOString().substring(0,10) %>"
               data-comment="<%=task.comment %>"
             >
             <span style="font-size: 1.5rem" class="u-text-black">
@@ -59,7 +99,8 @@
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/<%=task._id %>">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a>
+              <button class="my-btn btn-upd">Update</button>
+              <!-- <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a> -->
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/<%=task._id %>">Done</a>
@@ -71,9 +112,10 @@
         <ul class="u-text u-text-palette-3-base u-text-4 ul-task ulHigh">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "high" && task.done == false){ %>
-          <li data-subject="<%=task.subject %>"
+          <li data-taskid="<%=task._id %>"
+              data-subject="<%=task.subject %>"
               data-priority="<%=task.priority %>"
-              data-dueDate="<%=task.dueDate.toISOString().substring(0,10) %>"
+              data-duedate="<%=task.dueDate.toISOString().substring(0,10) %>"
               data-comment="<%=task.comment %>"
             >
             <span style="font-size: 1.5rem" class="u-text-black">
@@ -84,7 +126,8 @@
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/<%=task._id %>">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a>
+              <button class="my-btn btn-upd">Update</button>
+              <!-- <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a> -->
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/<%=task._id %>">Done</a>
@@ -96,9 +139,10 @@
         <ul class="u-text u-text-palette-1-base u-text-3 ul-task ulNormal">
           <% tasks.forEach(task => { %>
             <% if(task.priority == "normal" && task.done == false){ %>
-          <li data-subject="<%=task.subject %>"
+          <li data-taskid="<%=task._id %>"
+              data-subject="<%=task.subject %>"
               data-priority="<%=task.priority %>"
-              data-dueDate="<%=task.dueDate.toISOString().substring(0,10) %>"
+              data-duedate="<%=task.dueDate.toISOString().substring(0,10) %>"
               data-comment="<%=task.comment %>"
             >
             <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
@@ -109,7 +153,8 @@
               <a class="my-btn btn-del" href="/api/todo/tasks/delete/<%=task._id %>">Delete</a>
             </span>
             <span>
-              <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a>
+              <button class="my-btn btn-upd">Update</button>
+              <!-- <a class="my-btn btn-upd" href="/api/todo/tasks/update/<%=task._id %>">Update</a> -->
             </span>
             <span>
               <a class="my-btn btn-don" href="/api/todo/tasks/done/<%=task._id %>">Done</a>
