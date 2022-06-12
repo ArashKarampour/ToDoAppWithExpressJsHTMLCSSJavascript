@@ -1,0 +1,464 @@
+
+html{
+  overflow: auto;
+  height: 100vh;
+}
+.my-btn{
+  display: inline-block;
+  border-radius: 2rem;
+  padding: 2px 10px;
+  margin: 10px 3px;
+}
+
+.btn-del{
+  background-color: rgb(157, 9, 9);
+  color: white;  
+}
+
+.btn-upd{
+  border: 0;
+  outline: 0;
+  background-color: rgb(219, 205, 9);
+  color: white;  
+}
+
+.btn-upd:hover{
+  cursor: pointer;
+  color: rgb(71, 71, 255);
+}
+
+.btn-don{
+  background-color: rgb(6, 186, 27);
+  color: white;   
+}
+
+
+@keyframes delete {
+    0%{
+      opacity: 1;      
+    }
+
+    75%{
+      opacity: 0;      
+    }
+
+    100%{
+      opacity: 0;      
+      height: 0;
+      line-height: 0;
+      padding: 0;
+      margin-bottom: 0;
+    }
+}
+
+@keyframes done {
+  0%{
+    opacity: 1;    
+  }
+
+  1%{
+    opacity: 1;
+    text-decoration: line-through;
+    text-decoration-thickness: 5px;
+    text-decoration-color: green;
+  }
+
+  75%{
+    opacity: 0;
+    text-decoration: line-through;
+    text-decoration-thickness: 5px;
+    text-decoration-color: green;
+  }
+
+  100%{
+    opacity: 0;
+    text-decoration: line-through;
+    text-decoration-thickness: 5px;
+    text-decoration-color: green;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+section.u-section-2 div ul.u-text{
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.u-section-2 div ul li p{
+  background-color: rgb(255, 255, 255);
+  border-radius: 5rem;
+  width: 300px;
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+
+section div ul.u-text li{
+  margin-bottom: 1.2rem;
+  /*adding animation for delete:*/
+  /*animation-name: done, delete;*/
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+}
+
+/* .u-section-2{
+  height: 100%;
+  overflow-y: scroll;
+} */
+
+
+.add-btn-section #add-btn {
+  /*position: fixed;*/
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  /*left: 40rem;*/
+  /*margin: 177px 57px 27px auto;*/
+  margin: 20px 20px 20px auto;
+  padding: 15px 64px 15px 63px;
+  z-index: 1;
+}
+
+
+.u-section-1 .u-sheet-1 {
+  min-height: 101px;
+}
+
+.u-section-2{
+  height: 55vh;
+  overflow-y: scroll;
+}
+/*.u-section-2 .u-sheet-1 {
+  min-height: 101px;
+  height: 30vh;
+}*/
+
+.u-section-1 .u-image-1 {
+  width: 68px;
+  height: 68px;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJkZWZhdWx0LWltYWdlLXNvbGlkIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCgl4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQwMCAyNjUiIHN0eWxlPSJ3aWR0aDogNDAwcHg7IGhlaWdodDogMjY1cHg7Ij4KPGxpbmVhckdyYWRpZW50IGlkPSJYTUxJRF8yXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyMDAiIHkxPSIyNzMuMTEzIiB4Mj0iMjAwIiB5Mj0iOC4xMTMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgLTEgMCAyNjUpIj4KCTxzdG9wICBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiNBMEM3RDMiLz4KCTxzdG9wICBvZmZzZXQ9IjAuMzE5NSIgc3R5bGU9InN0b3AtY29sb3I6I0MwRDRERSIvPgoJPHN0b3AgIG9mZnNldD0iMC43Njg4IiBzdHlsZT0ic3RvcC1jb2xvcjojRThFNUVDIi8+Cgk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRjhFREY1Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjxyZWN0IGlkPSJYTUxJRF82MF8iIGZpbGw9InVybCgjWE1MSURfMl8pIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI2NSIvPgo8bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzFfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjIwMC4xIiB5MT0iOS45OTc1NTllLTAyIiB4Mj0iMjAwLjEiIHkyPSIxODYiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgLTEgMCAyNjUpIj4KCTxzdG9wICBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiNBMEM3RDMiLz4KCTxzdG9wICBvZmZzZXQ9IjAuMzE5NSIgc3R5bGU9InN0b3AtY29sb3I6I0MwRDRERSIvPgoJPHN0b3AgIG9mZnNldD0iMC43Njg4IiBzdHlsZT0ic3RvcC1jb2xvcjojRThFNUVDIi8+Cgk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRjhFREY1Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjxwYXRoIGZpbGw9InVybCgjU1ZHSURfMV8pIiBkPSJNMzk1LjMsOTYuMmMtNS0wLjgtNi4xLDEuMS04LjUsMi45Yy0xLTIuMy0yLjYtNi4yLTcuNy01YzEuNS01LjMtMi42LTguNC03LjctOC40CgljLTAuNiwwLTEuMiwwLjEtMS44LDAuMmMtMS44LTQuMS02LTYuOS0xMC43LTYuOWMtNi41LDAtMTEuOCw1LjMtMTEuOCwxMS44YzAsMC40LDAsMC45LDAuMSwxLjNjLTEuMi0wLjgtMi41LTEuMy0zLjktMS4zCgljLTQuMywwLTcuOSw0LjItNy45LDkuNGMwLDEuMiwwLjIsMi40LDAuNiwzLjVjLTAuNS0wLjEtMS0wLjEtMS42LTAuMWMtNi45LDAtMTIuNSw1LjUtMTIuNywxMi40Yy0wLjktMC4yLTEuOS0wLjQtMi45LTAuNAoJYy02LjQsMC0xMS43LDUuMi0xMi41LDExLjhjLTEuMi0wLjQtMi41LTAuNi0zLjktMC42Yy01LjksMC0xMC44LDMuOC0xMi4xLDguOWMtMi40LTItNS41LTMuMi04LjktMy4yYy02LDAtMTEuMSwzLjctMTIuOCw4LjgKCWMtMS41LTEuNC0zLjgtMi4zLTYuMy0yLjNjLTIuMSwwLTQuMSwwLjYtNS41LDEuN2gtMC4xYy0xLjMtNS41LTYuMi05LjUtMTIuMS05LjVjLTIuNCwwLTQuNywwLjctNi42LDEuOWMtMS40LTAuNy0zLTEuMi00LjgtMS4yCgljLTAuMywwLTAuNSwwLTAuOCwwYy0xLjUtNC4xLTUuMi03LTkuNS03Yy0zLjEsMC01LjksMS41LTcuOCwzLjljLTIuMi00LjgtNi44LTguMi0xMi4yLTguMmMtNS42LDAtMTAuNSwzLjctMTIuNSw4LjgKCWMtMi4xLTAuOS00LjQtMS41LTYuOS0xLjVjLTYuOCwwLTEyLjUsMy45LTE0LjUsOS4zYy0wLjIsMC0wLjUsMC0wLjcsMGMtNS4yLDAtOS42LDMuMi0xMS40LDcuOGMtMi43LTIuOC03LTQuNS0xMS44LTQuNQoJYy0zLjMsMC02LjQsMC45LTguOSwyLjNjLTIuMS02LjUtOC0xMi4yLTE4LjEtOS45Yy0yLjctMi4zLTYuMy0zLjctMTAuMS0zLjdjLTIuNSwwLTQuOCwwLjYtNi45LDEuNmMtMi4yLTUuOS03LjktMTAuMS0xNC42LTEwLjEKCWMtOC42LDAtMTUuNiw3LTE1LjYsMTUuNmMwLDAuOSwwLjEsMS43LDAuMiwyLjVjLTIuNi01LTcuOC04LjQtMTMuOC04LjRjLTguMywwLTE1LjEsNi41LTE1LjYsMTQuNmMtMi45LTMuMi03LTUuMy0xMS43LTUuMwoJYy03LjQsMC0xMy41LDUuMS0xNS4yLDEyYy0yLjktMy41LTkuOC02LTE0LjctNnYxMTkuMmg0MDBWMTAyQzQwMCwxMDIsNDAwLDk3LDM5NS4zLDk2LjJ6Ii8+CjxwYXRoIGZpbGw9IiM4RUE4QkIiIGQ9Ik00MDAsMjA2LjJjMCwwLTI1LjMtMTkuMi0zMy42LTI1LjdjLTEzLjQtMTAuNi0yMy4xLTEyLjktMzEuNy03cy0yMy45LDE5LjctMjMuOSwxOS43cy01OC45LTYzLjktNjEuNS02Ni40CgljLTEuNS0xLjQtMy42LTEuNy01LjUtMC45Yy01LjIsMi40LTE3LjYsOS43LTI0LjUsMTIuN2MtNi45LDIuOS00MS01MC43LTQ5LjYtNTNzLTg0LjMsODMuMy0xMDEuNCw3NS4xcy0yNi45LTIuMy0zNS40LDMuNQoJYy04LjYsNS45LTExLDUuOS0xNS45LDguMnMtMTcuMS01LjktMTcuMS01LjlWMjY1YzAsMCw0MDAsMC4yLDQwMCwwdi01OC44SDQwMHoiLz4KPHBhdGggZmlsbD0iIzdFOTZBNiIgZD0iTTMzMy40LDE3OWMtMTMuMS05LjMtNDAsNC42LTU1LjEsMTAuN2MtMjMuNiw5LjYtOTQtNTQuNC0xMDcuMi01OS43YzAsMC00LjIsMy43LTkuNiw3LjYKCWMtMy41LTAuNC04LjQtNS43LTkuOS00LjdjLTQuNiwzLjEtMTcuOCwxNS40LTI4LjMsMjYuNmMtMTAuNSwxMS4zLTExLjcsMC0xNS44LTAuNmMtMi41LTAuNC01NC4xLDQyLjUtNTguNyw0My4xCglDMjIuMywyMDUuMywwLDE5Ny41LDAsMTk3LjVWMjY1bDQwMC0wLjF2LTUzLjNDNDAwLDIxMS42LDM0NC44LDE4Ny4xLDMzMy40LDE3OXoiLz4KPHBhdGggZmlsbD0iIzc4OEY5RSIgZD0iTTAsMjY0Ljl2LTU4LjZjMCwwLDguMiwxLjgsMTEuMyw1LjNjMy4xLDMuNiwyNi4xLTQuMiwyNi4xLDQuN3MwLjUsNC4yLDAuNSwxNC44YzAsMTAuNywyMy00LjIsMzguMS0xOC40CglzMzQuOS00OS4yLDM2LTM1YzEsMTQuMi0xNS4xLDM5LjItMjQsNTYuNEM3OS4xLDI1MS40LDUxLjcsMjY1LDUxLjcsMjY1TDAsMjY0Ljl6Ii8+CjxwYXRoIGZpbGw9IiM3ODhGOUUiIGQ9Ik0xMDAsMjY1YzAsMCw2Ni43LTEyNS4xLDY4LjMtMTE2LjhzLTYuOCwyOS43LDIuMSwyNi4xYzguOS0zLjYsMTQuNi0xNiwxOC44LTkuNXMxNi4yLDM4LjYsMjEuOSwzMy44CgljNS43LTQuNywyMS40LTEzLjEsMjIuNC02LjVjMSw2LjUtMSw1LjMtNS43LDIwLjJDMjIzLjEsMjI3LjEsMjAwLDI2NSwyMDAsMjY1aC0xMGMwLDAsNi0yNC44LDguNi0zNC45YzIuNi0xMC4xLTMuNy0xOS0xMi04LjMKCXMtMjMsMjItMjQsMTcuOHMtNS43LTMwLjMtMTguOC0xNC4yYy0xMywxNi0zMy44LDM5LjctMzMuOCwzOS43aC0xMFYyNjV6Ii8+CjxwYXRoIGZpbGw9IiM3ODhGOUUiIGQ9Ik0yNDUsMjY1YzAsMCwxOS44LTU0LjcsMzMuNC02NC4yczUzLjctMjcuOSw0Ni45LTEzLjZjLTYuOCwxNC4yLTExLDM0LjQtMjAuMyw0OS44CgljLTkuNCwxNS40LTE4LjgsMjYuMS0xNC4xLDEzLjZjNC43LTEyLjUsNi40LTIzLjMsMy43LTIzLjFDMjcxLjMsMjI5LjEsMjYwLDI2NSwyNjAsMjY1SDI0NXoiLz4KPC9zdmc+Cg==");
+  background-position: 50% 50%;
+  margin: 17px auto 0 27px;
+}
+
+.u-section-1 .u-text-1 {
+  margin: -47px 863px 38px 111px;
+}
+
+
+
+/*Modal css*/
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.form-element{
+  margin-bottom: 10px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}  
+
+/* End Modal css */
+
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-text-1 {
+    width: auto;
+    margin-right: 554px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-text-1 {
+    margin-right: 374px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    height: 101px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin: -45px 172px 60px 113px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-text-1 {
+    margin-top: -47px;
+    margin-right: 27px;
+    margin-left: 111px;
+  }
+}.u-section-2 .u-sheet-1 {
+  /*min-height: 625px;*/
+  height: 75vh;
+}
+
+.u-section-2 .u-text-1 {
+  margin: 2px 964px 0 15px;
+}
+
+.u-section-2 .u-text-2 {
+  background-image: none;
+  margin: 32px 678px 0 15px;
+}
+
+.u-section-2 .u-text-3 {
+  font-size: 1.5rem;
+  margin: -42px 502px 0 180px;
+}
+
+.u-section-2 .u-text-4 {
+  margin: 15px 667px 0 15px;
+}
+
+.u-section-2 .u-text-5 {
+  font-size: 1.5rem;
+  margin: -42px 502px 0 180px;
+}
+
+.u-section-2 .u-text-6 {
+  margin: 15px 667px 0 15px;
+}
+
+.u-section-2 .u-text-7 {
+  font-size: 1.5rem;
+  margin: -42px 502px 0 180px;
+}
+
+.u-section-2 .u-btn-1 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  margin: 184px 57px 60px auto;
+  padding: 15px 64px 15px 63px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-2 .u-sheet-1 {
+    /*min-height: 760px;*/
+    height: 75vh;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 779px;
+  }
+
+  .u-section-2 .u-text-2 {
+    margin-right: 493px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-text-3 {
+    width: auto;
+    margin-right: 253px;
+    margin-left: 229px;
+  }
+
+  .u-section-2 .u-text-4 {
+    width: auto;
+    margin-top: 11px;
+    margin-right: 482px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-text-5 {
+    width: auto;
+    margin-right: 260px;
+    margin-left: 222px;
+  }
+
+  .u-section-2 .u-text-6 {
+    width: auto;
+    margin-right: 482px;
+    margin-left: 0;
+  }
+
+  .u-section-2 .u-text-7 {
+    /*width: auto;*/
+    margin-right: 253px;
+    margin-left: 229px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    margin-top: 426px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-2 .u-sheet-1 {
+    /*min-height: 762px;*/
+    height: 75vh;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 559px;
+  }
+
+  .u-section-2 .u-text-2 {
+    margin-right: 273px;
+  }
+
+  .u-section-2 .u-text-3 {
+    width: 458px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .u-section-2 .u-text-4 {
+    margin-right: 262px;
+  }
+
+  .u-section-2 .u-text-5 {
+    width: 458px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .u-section-2 .u-text-6 {
+    margin-right: 262px;
+  }
+
+  .u-section-2 .u-text-7 {
+    width: 458px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-sheet-1 {
+    /*min-height: 763px;*/
+    height: 75vh;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-right: 379px;
+  }
+
+  .u-section-2 .u-text-2 {
+    margin-right: 93px;
+  }
+
+  .u-section-2 .u-text-3 {
+    width: auto;
+    margin-right: -73px;
+    margin-left: 155px;
+  }
+
+  .u-section-2 .u-text-4 {
+    margin-top: 12px;
+    margin-right: 82px;
+  }
+
+  .u-section-2 .u-text-5 {
+    width: auto;
+    margin-right: -73px;
+    margin-left: 155px;
+  }
+
+  .u-section-2 .u-text-6 {
+    margin-top: 16px;
+    margin-right: 82px;
+  }
+
+  .u-section-2 .u-text-7 {
+    /*width: auto;*/
+    margin-top: -41px;
+    margin-right: -73px;
+    margin-left: 155px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    margin-top: 425px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-2 .u-text-1 {
+    margin-right: 179px;
+  }
+
+  .u-section-2 .u-text-2 {
+    width: auto;
+    margin-top: 36px;
+    margin-right: 15px;
+    margin-left: -15px;
+  }
+
+  .u-section-2 .u-text-3 {
+    margin-top: -46px;
+    margin-right: -148px;
+    margin-left: 148px;
+  }
+
+  .u-section-2 .u-text-4 {
+    margin-top: 24px;
+    margin-right: 15px;
+    margin-left: -15px;
+  }
+
+  .u-section-2 .u-text-5 {
+    margin-right: -148px;
+    margin-left: 148px;
+  }
+
+  .u-section-2 .u-text-6 {
+    margin-top: 36px;
+    margin-right: 15px;
+    margin-left: -15px;
+  }
+
+  .u-section-2 .u-text-7 {
+    margin-right: -148px;
+    margin-left: 148px;
+  }
+
+  .u-section-2 .u-btn-1 {
+    margin-top: 223px;
+  }
+}
