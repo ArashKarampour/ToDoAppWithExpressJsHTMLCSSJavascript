@@ -15,7 +15,8 @@
 }
 
 .u-section-1 .u-text-2 {
-  margin: 22px 648px 60px 77px;
+  /*margin: 22px 648px 60px 77px;*/
+  margin: 22px 20px 60px 77px;
 }
 
 /* .u-section-1 .u-list-icon-1 {
@@ -81,14 +82,16 @@ section div ul.u-text li{
 
 @media (max-width: 1199px) {
   .u-section-1 .u-text-2 {
-    margin-right: 525px;
+    /* margin-right: 525px; */
+    margin-right: 20px;
     margin-left: 0;
   }
 }
 
 @media (max-width: 991px) {
   .u-section-1 .u-text-2 {
-    margin-right: 305px;
+    /*margin-right: 305px;*/
+    margin-right: 20px;
   }
 }
 
@@ -102,7 +105,8 @@ section div ul.u-text li{
   }
 
   .u-section-1 .u-text-2 {
-    margin-right: 125px;
+    /*margin-right: 125px;*/
+    margin-right: 20px;
   }
 }
 

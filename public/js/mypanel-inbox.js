@@ -38,11 +38,6 @@ window.onclick = function(event) {
   }
 }
 
-// window.onclick = function(event) {
-//   if (event.target == modalUpd) {
-//     modalUpd.style.display = "none";
-//   }
-// } 
 
 const myform = document.getElementById("add-task");
 myform.addEventListener('submit',function (event) {
@@ -84,86 +79,79 @@ myform.addEventListener('submit',function (event) {
     .then(task => {
         //console.log(task);
       if(task){
-
-        if(showTask(task)){
-
-          if(task.priority == "normal"){                   
-              const li = `<li
-              data-taskid="${task._id}"
-              data-subject="${task.subject}"
-              data-priority="${task.priority}"
-              data-dueDate="${task.dueDate.substring(0,10)}"
-              data-comment="${task.comment}"
-              >
-              <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
-                ${task.subject}
-              </span>
-              <br>
-              <span>
-                <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
-              </span>
-              <span>
-                <button class="my-btn btn-upd">Update</button>
-              </span>
-              <span>
-                <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
-              </span>
-            </li>`;
-            document.querySelector(".ulNormal").innerHTML += li;
-            alert("Task added successfully!");
-          }
-          else if(task.priority == "high"){
-              const li = `<li
-              data-taskid="${task._id}"
-              data-subject="${task.subject}"
-              data-priority="${task.priority}"
-              data-dueDate="${task.dueDate.substring(0,10)}"
-              data-comment="${task.comment}"
-              >
-              <span style="font-size: 1.5rem" class="u-text-black">
-                ${task.subject}
-              </span>
-              <br>
-              <span>
-                <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
-              </span>
-              <span>
-                <button class="my-btn btn-upd">Update</button>
-              </span>
-              <span>
-                <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
-              </span>
-              </li>`;
-              document.querySelector(".ulHigh").innerHTML += li;
-              alert("Task added successfully!");
-          }else{
-              const li = `<li
-              data-taskid="${task._id}"
-              data-subject="${task.subject}"
-              data-priority="${task.priority}"
-              data-dueDate="${task.dueDate.substring(0,10)}"
-              data-comment="${task.comment}"
-              >
-              <span style="font-size: 1.5rem" class="u-text-black">
-                ${task.subject}
-              </span>
-              <br>
-              <span>
-                <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
-              </span>
-              <span>
-                <button class="my-btn btn-upd">Update</button>
-              </span>
-              <span>
-                <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
-              </span>
-              </li>`;
-              document.querySelector(".ulVeryHigh").innerHTML += li;
-              alert("Task added successfully!");
-          }
+        if(task.priority == "normal"){                               
+            const li = `<li
+            data-taskid="${task._id}"
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
+            <span style="font-size: 1.5rem;margin-right:120px" class="u-text-black">
+              ${task.subject}
+            </span>
+            <p>${new Date(task.dueDate.substring(0,10)).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}</p>
+            <span>
+              <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
+            </span>
+            <span>
+              <button class="my-btn btn-upd">Update</button>
+            </span>
+            <span>
+              <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
+            </span>
+          </li>`;
+          document.querySelector(".ulNormal").innerHTML += li;
+          alert("Task added successfully!");
         }
-        else{
-          alert("Task added successfully to Inbox!");
+        else if(task.priority == "high"){
+            const li = `<li
+            data-taskid="${task._id}"
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
+            <span style="font-size: 1.5rem" class="u-text-black">
+               ${task.subject}
+            </span>
+            <p>${new Date(task.dueDate.substring(0,10)).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}</p>
+            <span>
+              <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
+            </span>
+            <span>
+              <button class="my-btn btn-upd">Update</button>
+            </span>
+            <span>
+              <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
+            </span>
+            </li>`;
+            document.querySelector(".ulHigh").innerHTML += li;
+            alert("Task added successfully!");
+        }else{
+            const li = `<li
+            data-taskid="${task._id}"
+            data-subject="${task.subject}"
+            data-priority="${task.priority}"
+            data-dueDate="${task.dueDate.substring(0,10)}"
+            data-comment="${task.comment}"
+            >
+            <span style="font-size: 1.5rem" class="u-text-black">
+               ${task.subject}
+            </span>
+            <p>${new Date(task.dueDate.substring(0,10)).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}</p>
+            <span>
+              <a class="my-btn btn-del" href="/api/todo/tasks/delete/${task._id }">Delete</a>
+            </span>
+            <span>
+              <button class="my-btn btn-upd">Update</button>
+            </span>
+            <span>
+              <a class="my-btn btn-don" href="/api/todo/tasks/done/${task._id }">Done</a>
+            </span>
+            </li>`;
+            document.querySelector(".ulVeryHigh").innerHTML += li;
+            alert("Task added successfully!");
         }
       }
     })
@@ -220,7 +208,7 @@ function deleteTask(e){
 }
 }
 
-document.getElementById("sec-ef11").addEventListener('click', deleteTask);
+document.getElementById("sec-701a").addEventListener('click', deleteTask);
 // })
 // });
 
@@ -253,7 +241,7 @@ function doneTask(e){
   }
 }
 
-document.getElementById("sec-ef11").addEventListener('click', doneTask);
+document.getElementById("sec-701a").addEventListener('click', doneTask);
 
 
 function updateTask(e){
@@ -277,7 +265,7 @@ function updateTask(e){
   }
 }
 
-document.getElementById("sec-ef11").addEventListener('click', updateTask);
+document.getElementById("sec-701a").addEventListener('click', updateTask);
 
 
 const myUpdform = document.getElementById("update-task");
@@ -332,31 +320,3 @@ myUpdform.addEventListener('submit',function (event) {
     
 });
 
-
-document.addEventListener("DOMContentLoaded",hideTasks);
-
-function hideTasks(){
-  
-  let dueDate = new Date();
-  dueDate = dueDate.getFullYear() + '-' + ('0' + (dueDate.getMonth() + 1)).slice(-2) + '-' + ('0' + dueDate.getDate()).slice(-2);  
-  
-  const allTasksli = document.querySelectorAll(".u-section-1 ul li");
-  
-  allTasksli.forEach(task => {
-      if(task.dataset.duedate != dueDate){
-          task.style.display = "none";
-      }
-  });
-}
-
-function showTask(task){
-  let dueDate = new Date();
-  dueDate = dueDate.getFullYear() + '-' + ('0' + (dueDate.getMonth() + 1)).slice(-2) + '-' + ('0' + dueDate.getDate()).slice(-2);  
-  
-  if(task.dueDate.substring(0,10) != dueDate){
-    return false;
-  }
-
-  return true;
-
-}
