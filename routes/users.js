@@ -6,9 +6,10 @@ const lodash = require("lodash");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("config");
-const mailgun = require("mailgun-js");
-const DOMAIN = "sandbox4711c7ec37104b2faa5731b099109750.mailgun.org";
-const mg = mailgun({ apiKey: config.get("Mailgun_API_Key"), domain: DOMAIN });
+const nodemailer = require("nodemailer");
+// const mailgun = require("mailgun-js");
+// const DOMAIN = "sandbox4711c7ec37104b2faa5731b099109750.mailgun.org";
+// const mg = mailgun({ apiKey: config.get("Mailgun_API_Key"), domain: DOMAIN });
 
 //const port = require("../index.js");
 
@@ -33,21 +34,66 @@ router.post("/register", async (req, res) => {
     const token = user.generateAuthToken();
     //using cookies to stay sign in and also using confirmation email:
     //res.cookie("token", token);
-    const data = {
-      from: "todo.app@gmail.com",
+    // const data = {
+    //   from: "todo.app@gmail.com",
+    //   to: req.body.email,
+    //   subject: "Hello",
+    //   html: `
+    //     <h2>Please clike on the link to activate your account</h2>
+    //     <a style="color:green;border-radius:5px" href=${config.get(
+    //       "UrlBase"
+    //     )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
+    //   `,
+    //   //text: "Testing some Mailgun awesomness!",
+    // };
+    // mg.messages().send(data, function (error, body) {
+    //   if (error) console.log("Couldn't send email!", error);
+    //   console.log(body);
+    // });
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: "todo.web.app.mine@gmail.com",
+        pass: config.get("gmailpass") //finaly using app password after activating 2 step verfication on this google account
+      }
+    });
+
+    // const testAccount = await nodemailer.createTestAccount();
+    // let transporter = nodemailer.createTransport({
+    //   host: "smtp.ethereal.email",
+    //   port: 587,
+    //   secure: false, // true for 465, false for other ports
+    //   auth: {
+    //     user: testAccount.user, // generated ethereal user
+    //     pass: testAccount.pass, // generated ethereal password
+    //   },
+    // });
+
+    const mailOptions = {
+      /*from: `from test accout: ${testAccount.user}`,*/
+      from: `from test accout: todo.web.app.mine@gmail.com`,
       to: req.body.email,
-      subject: "Hello",
+      subject: "Verification email TodoApp",
       html: `
         <h2>Please clike on the link to activate your account</h2>
         <a style="color:green;border-radius:5px" href=${config.get(
           "UrlBase"
-        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
-      `,
-      //text: "Testing some Mailgun awesomness!",
+        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>`
     };
-    mg.messages().send(data, function (error, body) {
-      if (error) console.log("Couldn't send email!", error);
-      console.log(body);
+
+    transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+        console.log("Couldn't send email! with error: ", error);
+      }else{
+        console.log("Message sent: %s", info.response);
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+        // Preview only available when sending through an Ethereal account
+        //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      }
     });
 
     //res.send(lodash.pick(user, ["_id", "name", "email"]));
@@ -71,21 +117,66 @@ router.post("/resend", async (req, res) => {
     if (!user) return res.status(404).send("User not found!");
 
     const token = user.generateAuthToken();
-    const data = {
-      from: "todo.app@gmail.com",
+    // const data = {
+    //   from: "todo.app@gmail.com",
+    //   to: req.body.email,
+    //   subject: "Hello",
+    //   html: `
+    //     <h2>Please clike on the link to activate your account</h2>
+    //     <a style="color:green;border-radius:5px" href=${config.get(
+    //       "UrlBase"
+    //     )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
+    //   `,
+    // };
+    // mg.messages().send(data, function (error, body) {
+    //   if (error) console.log("Couldn't send email!", error);
+    //   console.log(body);
+    // });
+    // const testAccount = await nodemailer.createTestAccount();
+    // let transporter = nodemailer.createTransport({
+    //   host: "smtp.ethereal.email",
+    //   port: 587,
+    //   secure: false, // true for 465, false for other ports
+    //   auth: {
+    //     user: testAccount.user, // generated ethereal user
+    //     pass: testAccount.pass, // generated ethereal password
+    //   },
+    // });
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: "todo.web.app.mine@gmail.com",
+        pass: config.get("gmailpass")
+      }
+    });
+
+    const mailOptions = {
+      from: "todo.web.app.mine@gmail.com",
       to: req.body.email,
-      subject: "Hello",
+      subject: "Verification email TodoApp",
       html: `
         <h2>Please clike on the link to activate your account</h2>
         <a style="color:green;border-radius:5px" href=${config.get(
           "UrlBase"
-        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>
-      `,
+        )}:${config.get("Port")}/api/todo/users/verify/${token}>Verify</a>`
     };
-    mg.messages().send(data, function (error, body) {
-      if (error) console.log("Couldn't send email!", error);
-      console.log(body);
+
+    transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+        console.log("Couldn't send email! with error: ", error);
+      }else{
+        console.log("Message sent: %s", info.response);
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+        // Preview only available when sending through an Ethereal account
+        //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+      }
     });
+
     res.send(`<h3>The email has been Resent!</h3>
     <h4>please check your inbox</h4>
     <br>

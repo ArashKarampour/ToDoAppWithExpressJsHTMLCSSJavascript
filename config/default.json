@@ -2,5 +2,6 @@
   "jwtPrivateKey": "mytodoappsecureprivatekey",
   "Mailgun_API_Key": "416d7cf4b568e034b0e04491d3f072b7-5e7fba0f-e926df8b",
   "UrlBase": "http://localhost",
-  "Port": "3000"
+  "Port": "3000",
+  "gmailpass": "chgudikrclgonyhr"
 }
