@@ -150,6 +150,7 @@ section div ul.u-text li{
 
 .u-section-1 .u-text-1 {
   margin: -47px 863px 38px 111px;
+  width: 22rem;
 }
 
 
@@ -203,7 +204,7 @@ section div ul.u-text li{
 
 @media (max-width: 1199px) {
   .u-section-1 .u-text-1 {
-    width: auto;
+    /*width: auto;*/
     margin-right: 554px;
   }
 }
