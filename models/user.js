@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 1024,
   },
+  forgotpasstoken: {
+    type: String,
+    required: false,
+    trim: true,    
+    maxlength: 1024,
+  },
   verified: {
     type: Boolean,
     default: false,
@@ -69,6 +75,16 @@ function validateLogin(user) {
     email: Joi.string().email().max(100).required(),
     password: Joi.string().min(6).max(50).required(),
   });
+  
+  return schema.validate(user);
+}
+
+function validateResetPass(user) {
+  const schema = Joi.object({
+    verificationcode: Joi.string().max(10).required(),
+    email: Joi.string().email().max(100).required(),
+    password: Joi.string().min(6).max(50).required(),
+  });
 
   return schema.validate(user);
 }
@@ -76,3 +92,4 @@ function validateLogin(user) {
 module.exports.User = User;
 module.exports.validateUserInputs = validateUserInputs;
 module.exports.validateLogin = validateLogin;
+module.exports.validateResetPass = validateResetPass;

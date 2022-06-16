@@ -13,7 +13,7 @@ body {
   justify-content: center;
 }
 
-.form-signin {
+.form-signin, .form-resetpass{
   max-width: 300px;
   text-align: center;
   width: 100%;
