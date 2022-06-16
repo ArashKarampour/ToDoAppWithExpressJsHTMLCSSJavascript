@@ -1,4 +1,4 @@
-const { User, validateUserInputs, validateLogin } = require("../models/user");
+const { User, validateUserInputs, validateLogin,validateResetPass } = require("../models/user");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
     user = new User(lodash.pick(req.body, ["name", "email", "password"]));
 
     // for generating random number between two number inclusive of the both. see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    const randomNum = Math.floor(Math.random * (10 - 5 + 1) + 5); // generating random number between 5 and 10 inclusive of both 5 and 10
+    const randomNum = Math.floor(Math.random() * (10 - 5 + 1) + 5); // generating random number between 5 and 10 inclusive of both 5 and 10
     // hashing the password with bcrypt lib
     const salt = await bcrypt.genSalt(randomNum);
     user.password = await bcrypt.hash(user.password, salt);
@@ -73,7 +73,7 @@ router.post("/register", async (req, res) => {
 
     const mailOptions = {
       /*from: `from test accout: ${testAccount.user}`,*/
-      from: `from test accout: todo.web.app.mine@gmail.com`,
+      from: `todo.web.app.mine@gmail.com`,
       to: req.body.email,
       subject: "Verification email TodoApp",
       html: `
@@ -263,4 +263,87 @@ router.get("/logout", async (req, res) => {
   res.clearCookie("token").send("loged out successfully");
 });
 
+router.post("/forgotpass", async (req,res) => {
+  try{
+    const email = await User.findOne({email:req.body.email});
+    if(!email) return res.status(400).send("Email incorrect!");
+
+    const randomNum = Math.floor(Math.random() * (999999 - 111111 + 1) + 111111); // generating random number between 5 and 10 inclusive of both 5 and 10
+    console.log(randomNum);
+    // hashing the password with bcrypt lib
+    const salt = await bcrypt.genSalt(10);
+    const forgotpasstoken = await bcrypt.hash(randomNum.toString(), salt);
+
+    await User.findOneAndUpdate({email:req.body.email},{forgotpasstoken:forgotpasstoken});
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: "todo.web.app.mine@gmail.com",
+        pass: config.get("gmailpass") //finaly using app password after activating 2 step verfication on this google account
+      }
+    });
+
+    const mailOptions = {
+      from: `todo.web.app.mine@gmail.com`,
+      to: req.body.email,
+      subject: "Verification email TodoApp",
+      html: `
+        <h2>Your reset verification password code:</h2>
+        ${randomNum.toString()}
+        <p>Please enter this code to reset your password!</p>
+        `
+    };
+
+    transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+        console.log("Couldn't send email! with error: ", error);
+      }else{
+        console.log("Message sent: %s", info.response);
+      }
+    });
+    
+    res.render("resetpassword",{email:req.body.email});
+
+  }catch(e){
+    console.error(e);
+    return res.status(500).send("Something failed!\nPlease try again!");
+  }
+});
+
+router.post("/resetpass", async (req,res) => {
+  const { error } = validateResetPass(lodash.pick(req.body, ["verificationcode", "email", "password"]));
+  if(error) return res.status(400).send(error.details[0].message);
+
+  try{
+    const user = await User.findOne({email:req.body.email});
+    if(!user) return res.status(400).send("User doesn't exist!");
+    //console.log(req.body.verificationcode.trim());
+    const validToken = await bcrypt.compare(
+      req.body.verificationcode.trim(),
+      user.forgotpasstoken
+    );
+
+    if (!validToken)
+      return res
+        .status(400)
+        .send("Verfication code didn't match!\nPlease try agian!");
+    
+    const randomNum = Math.floor(Math.random() * (10 - 5 + 1) + 5); // generating random number between 5 and 10 inclusive of both 5 and 10
+    // hashing the password with bcrypt lib
+    const salt = await bcrypt.genSalt(randomNum);
+    user.password = await bcrypt.hash(req.body.password, salt);
+    user.forgotpasstoken = "";
+    await user.save();
+
+    res.send("Password reset successfully!\nNow <a href='/loginForm.html'>Login</a>!");
+  }
+  catch(e){
+    console.error(e);
+    return res.status(500).send("Something failed!\nPlease try again!");
+  }
+  
+});
 module.exports = router;
