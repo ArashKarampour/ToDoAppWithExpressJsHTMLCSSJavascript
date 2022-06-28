@@ -1,4 +1,5 @@
 const { Task, validateTask,validateTaskId } = require("../models/task");
+const { User } = require("../models/user");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -44,6 +45,13 @@ router.put("/done/:taskId", async (req,res) => {
 
   try{
     const doneTask = await Task.findByIdAndUpdate(req.params.taskId,{$set:{done:true}},{new:true});
+    // const task = await Task.findById(req.params.taskId);
+    // task.done = true;    
+    // const doneTask = await task.save();
+    const user = await User.findById(doneTask.userId);
+    console.log(user);
+    user.score += 100; 
+    await user.save(); 
     //console.log(doneTask);
     return res.json(doneTask);
   }catch(e){
