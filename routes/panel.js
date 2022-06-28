@@ -31,10 +31,10 @@ router.get("/archive", async (req,res) => {
 router.get("/inbox" , async (req,res) => {
     try{
         const tasks = await Task.find({userId:req.user._id , done:false});
-        const userEmail = await User.find({_id:req.user._id }).select("email");
+        const userData = await User.find({_id:req.user._id }).select({email:1,score:1});
 
-        //console.log(tasks,"\n",userEmail);
-        return res.render("Inbox",{tasks:tasks,userEmail:userEmail});
+        //console.log(tasks,"\n",userData);
+        return res.render("Inbox",{tasks:tasks,userData:userData});
         
     }catch(e){
         console.error(e);

@@ -232,6 +232,8 @@ function doneTask(e){
           anchor.parentElement.parentElement.addEventListener("animationend",  function () {
               this.remove();
           });
+          document.getElementById("score").innerText = parseInt(document.getElementById("score").innerText) + 100;
+
           res.json()
           .then(doneTask => alert(`Task with title: "${doneTask.subject}" done successfully!`));
         }

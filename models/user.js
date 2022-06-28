@@ -26,10 +26,14 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 1024,
   },
+  score: {
+    type: Number,
+    default: 0,
+  },
   forgotpasstoken: {
     type: String,
     required: false,
-    trim: true,    
+    trim: true,
     maxlength: 1024,
   },
   verified: {
@@ -75,7 +79,7 @@ function validateLogin(user) {
     email: Joi.string().email().max(100).required(),
     password: Joi.string().min(6).max(50).required(),
   });
-  
+
   return schema.validate(user);
 }
 
