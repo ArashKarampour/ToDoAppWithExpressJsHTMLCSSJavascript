@@ -322,3 +322,24 @@ myUpdform.addEventListener('submit',function (event) {
     
 });
 
+
+function sortByDate(){
+  const lis = Array.from(document.querySelectorAll("section div ul li"));
+  
+  document.querySelector(".ulVeryHigh").innerHTML = "";
+  document.querySelector(".ulHigh").innerHTML = "";
+  document.querySelector(".ulNormal").innerHTML = "";
+  
+  lis.sort(function(a,b){
+    if(a.dataset.duedate < b.dataset.duedate) return -1;
+    else if(a.dataset.duedate > b.dataset.duedate) return 1;
+    return 0; 
+  });
+  
+  // console.log(lis);
+
+  lis.forEach(li => document.querySelector(".ulNormal").innerHTML += li.outerHTML );
+  
+}
+
+document.getElementById("sortByDateBtn").addEventListener("click",sortByDate);
