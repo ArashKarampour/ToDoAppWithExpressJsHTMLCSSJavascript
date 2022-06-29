@@ -32,6 +32,14 @@ html{
   color: white;   
 }
 
+div#sortByDateBtnDiv{
+  display: flex;
+  justify-content: flex-end;
+}
+
+button#sortByDateBtn{
+  padding: 10px 15px;
+}
 
 @keyframes delete {
     0%{
