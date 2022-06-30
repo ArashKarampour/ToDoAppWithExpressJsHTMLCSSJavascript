@@ -18,8 +18,15 @@ const panel = require("./routes/panel");
 const auth = require("./middlewares/auth");
 const config = require("config");
 
-if (!config.get("jwtPrivateKey")) console.log("jwtPrivateKey is not set!");
+const sendScheduledEmail = require("./cron-job/sendScheduledEmail");
+try{
+  sendScheduledEmail();
+}catch(e){
+  console.error(e);
+}
 
+
+if (!config.get("jwtPrivateKey")) console.log("jwtPrivateKey is not set!");
 
 app.get("/", (req, res) => {
   //res.send("Hello");
