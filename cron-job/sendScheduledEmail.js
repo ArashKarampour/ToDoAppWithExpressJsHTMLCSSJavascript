@@ -33,16 +33,16 @@ module.exports = function (){
             }
 
             //console.log(emails);
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
+                auth: {
+                  user: "todo.web.app.mine@gmail.com",
+                  pass: config.get("gmailpass") //finaly using app password after activating 2 step verfication on this google account
+                }
+            });
             userEmails.forEach(userEmail => {
-                const transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true,
-                    auth: {
-                      user: "todo.web.app.mine@gmail.com",
-                      pass: config.get("gmailpass") //finaly using app password after activating 2 step verfication on this google account
-                    }
-                });
                 
                 console.log(userEmail);
                 const mailOptions = {
